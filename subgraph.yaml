@@ -1,0 +1,61 @@
+# subgraph.yaml
+specVersion: 0.0.2
+description: Graph Node Test
+schema:
+  file: ./schema.graphql
+dataSources:
+
+  - kind: ethereum/contract
+    name: GraphNodeMiner
+    network: gv
+    source:
+      address: "0xB0482f53E6f15Cbf4A61Cf17cD4168675730a893"
+      abi: Miner
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - SkuInfoAddedEntity
+        - SkuInfoUpdatedEntity
+        - PurchasedEntity
+        - WithdrawFundEntity
+        - ClaimedEntity
+      abis:
+        - name: Miner
+          file: ./abis/Miner.json
+      eventHandlers:
+        - event: SkuInfoAdded(indexed uint256,uint256,uint256,address,address,address,uint256)
+          handler: handleSkuInfoAdded
+        - event: SkuInfoUpdated(indexed uint256,uint256,uint256)
+          handler: handleSkuInfoUpdated
+        - event: Purchased(indexed address,indexed uint256,uint256,uint256,uint256)
+          handler: handlePurchased
+        - event: Claimed(indexed address,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleClaimed
+        - event: SkuInfoUpdated(indexed uint256,uint256,uint256)
+          handler: handleSkuInfoUpdated
+      file: ./src/handlers/mapping.ts
+
+  - kind: ethereum/contract
+    name: GraphNodePNFT
+    network: gv
+    source:
+      address: "0x44ECe5B16FaB75D1A920E57Fe6d2BC64182D9E09"
+      abi: PNFT
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - PNFTTransferEntity
+        - PNFTMintEntity
+      abis:
+        - name: PNFT
+          file: ./abis/PNFT.json
+      eventHandlers:
+        - event: PNFTMint(indexed uint256,indexed address,uint256,uint256,uint256)
+          handler: handlePNFTMint
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/handlers/mapping.ts

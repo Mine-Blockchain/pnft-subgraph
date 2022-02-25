@@ -1,0 +1,3 @@
+graph deploy domain/pnft1 --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020
+
+curl -i -H "Content-Type: application/json" -d '{"query": "{ claimedEntities { id, blockTm, blockNum, user, skuId, pRewardAmount, xRewardAmount, prevRewardIndex, curRewardIndex, tm } }", "variables":null}' http://127.0.0.1:8000/subgraphs/name/domain/pnft1

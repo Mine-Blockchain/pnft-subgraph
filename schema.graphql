@@ -1,0 +1,86 @@
+
+type SkuInfoAddedEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  skuId: BigInt!
+  unitPrice: BigInt!
+  stockSize: BigInt!
+  paymentToken: Bytes!
+  pRewardToken: Bytes!
+  xRewardToken: Bytes!
+  lifeTime: BigInt!
+}
+
+type SkuInfoUpdatedEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  skuId: BigInt!
+  unitPrice: BigInt!
+  stockSize: BigInt!
+}
+
+type PurchasedEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  user: Bytes!
+  skuId: BigInt!
+  size: BigInt!
+  cost: BigInt!
+  tokenId: BigInt!
+}
+
+type WithdrawFundEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  to: Bytes!
+  tokenAddr: Bytes!
+  amount: BigInt!
+}
+
+type ClaimedEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  user: Bytes!
+  skuId: BigInt!
+  pRewardAmount: BigInt!
+  xRewardAmount: BigInt!
+  prevRewardIndex: BigInt!
+  curRewardIndex: BigInt!
+  tm: BigInt!
+}
+
+type PNFTMintEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  tokenId: BigInt!
+  to: Bytes!
+  skuId: BigInt!
+  size: BigInt!
+  ctime: BigInt!
+}
+
+type PNFTTransferEntity @entity {
+  id: ID!
+  blockTm: BigInt!
+  blockNum: BigInt!
+
+  from: Bytes!
+  to: Bytes!
+  tokenId: BigInt!
+
+  skuId: BigInt!
+  size: BigInt!
+  ctime: BigInt!
+}
